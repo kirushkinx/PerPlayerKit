@@ -40,7 +40,7 @@ public class KitRoomSaveListener implements Listener {
                     InventoryView view = e.getView();
                     Player p = (Player) e.getWhoClicked();
 
-                    if (view.getTitle().contains(ChatColor.BLUE + p.getName() + "'s Kits")) {
+                    if (view.getTitle().contains(ChatColor.BLUE + "Кit Room")) {
                         ItemStack saveButton = e.getInventory().getItem(53);
                         if (saveButton != null && saveButton.getType() == Material.BARRIER) {
                             if (e.getSlot() == 53) {
@@ -60,7 +60,7 @@ public class KitRoomSaveListener implements Listener {
                                     // Save kitroom data
                                     KitRoomDataManager.get().setKitRoom(page, kitroom);
                                     KitRoomDataManager.get().saveToDBAsync();
-                                    p.sendMessage(ChatColor.GREEN + "Saved kitroom page: " + (page + 1));
+                                    p.sendMessage(ChatColor.GREEN + "Saved kitroom page " + (page + 1));
                                 }
                             }
                         }
