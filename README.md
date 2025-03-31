@@ -5,7 +5,7 @@ Join the discord for more information and support: [Discord](https://discord.gg/
 
 # Kit Menu
 
-![Kit Menu](./images/MainMenu.png)
+![Kit Menu](./images/KitMenu.png)
 
 # Kit Editor
 
