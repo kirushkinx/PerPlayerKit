@@ -1,7 +1,27 @@
-# PerPlayerKit
+# McTiers PerPlayerKit
+
+PerPlayerKit is a [PaperMC](https://papermc.io/) plugin that allows players to make their own unique kits to PvP with. Administrators create a set of items in the "Virtual Kit Room", from which players pick their items. They can then make up to 9 kits each with can be shared, modified, and inspected by moderators. It features a GUI for simple kit usage of the plugin. Additionally, commands can be used to quickly load kits and for moderator features. It also features protections against abusive items, limiting NBT data and enchantments to what is available in vanilla Minecraft and only allowing items that can be found in the "virtual kit room". Players can also use the plugin to create enderchest kits that will be loaded into their enderchest when they select the enderchest kit.
 Join the discord for more information and support: [Discord](https://discord.gg/5djuBSKWuV)
 
-![Main Menu](./images/MainMenu.png)
+# Kit Menu
+
+![Kit Menu](./images/MainMenu.png)
+
+# Kit Editor
+
+![Kit Editor](./images/KitEditor.png)
+
+# Enderchest Editor
+
+![Ec Editor](./images/EcEditor.png)
+
+# Regear Shulker
+
+![Regear](./images/Regear.png)
+
+# Premade Kits
+
+![PremadeKits](./images/PremadeKits.png)
 
 ## License: AGPLv3
 
@@ -10,10 +30,6 @@ PerPlayerKit is open source and licensed under the terms of the [GNU Affero Gene
 ## Contributing to PerPlayerKit
 
 If you would like to contribute to the project you can do so by forking the repository and submitting a pull request. We prefer that improvements and contributions be merged into the main branch, rather than spread across numerous forks.
-
-## About the plugin
-
-PerPlayerKit is a [PaperMC](https://papermc.io/) plugin that allows players to make their own unique kits to PvP with. Administrators create a set of items in the "Virtual Kit Room", from which players pick their items. They can then make up to 9 kits each with can be shared, modified, and inspected by moderators. It features a GUI for simple kit usage of the plugin. Additionally, commands can be used to quickly load kits and for moderator features. It also features protections against abusive items, limiting NBT data and enchantments to what is available in vanilla Minecraft and only allowing items that can be found in the "virtual kit room". Players can also use the plugin to create enderchest kits that will be loaded into their enderchest when they select the enderchest kit.
 
 ## Dependencies
 
