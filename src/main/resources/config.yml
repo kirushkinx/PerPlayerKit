@@ -1,105 +1,105 @@
 
-config-version: 1 # do not change this value
+config-version: 1 #do not change this value
 
 
-# Database credentials are only required if you are using MySQL or Redis
+#Database credentials are only required if you are using MySQL or Redis
 # It is strongly recommended to use MySQL or SQLite
 # YAML should not be used in any environment
 
-storage: # sqlite, mysql, redis, yml (yaml)
-  type: sqlite
+storage: #sqlite, mysql, redis, yml (yaml)
+  type: "sqlite"
 
 mysql:
-  host: localhost
-  port: '3306'
-  dbname: kitdatabase
-  username: username
-  password: pa55w0rd
+  host: "localhost"
+  port: "3306"
+  dbname: "kitdatabase"
+  username: "username"
+  password: "pa55w0rd"
   useSSL: false
-  maximumPoolSize: 10 # only change this if you know what your doing
+  maximumPoolSize: 10 #only change this if you know what your doing
 
 redis:
-  host: localhost
+  host: "localhost"
   port: 6379
-  password: pa55w0rd
+  password: "pa55w0rd"
 
 
 motd:
   enabled: false
   delay: 5
-  message: # join messages using mini message format
-    - ''
-    - <gray>   <st>                </st> <aqua><b>Per Player Kits</b><gray> <st>                </st>
-    - ''
-    - '         <white>Type <aqua>/kit<white>, <aqua>/k <white>or <aqua>/pk<white>
-      to get started!'
-    - ''
-    - '<gray>   <st>                                                         '
-    - ''
+  message: #join messages using mini message format
+    - ""
+    - "<gray>   <st>                </st> <aqua><b>Per Player Kits</b><gray> <st>                </st>"
+    - ""
+    - "         <white>Type <aqua>/kit<white>, <aqua>/k <white>or <aqua>/pk<white> to get started!"
+    - ""
+    - "<gray>   <st>                                                         "
+    - ""
 
-scheduled-broadcast: # uses mini message format
+scheduled-broadcast: #uses mini message format
   enabled: false
-  period: 90 # in seconds
+  period: 90 #in seconds
   messages:
-  - <white>Check out public kits with the <aqua>/pk<white> command!
-  - <white>Want to share a kit? Use the <aqua>/sharekit <slot><white> command!
-  - <white>Type <aqua>/kit<white>, <aqua>/k <white>or <aqua>/pk<white> to get started!
+    - "<white>Check out public kits with the <aqua>/pk<white> command!"
+    - "<white>Want to share a kit? Use the <aqua>/sharekit <slot><white> command!"
+    - "<white>Type <aqua>/kit<white>, <aqua>/k <white>or <aqua>/pk<white> to get started!"
 
 
 kitroom:
   items:
-    '1':
-      name: Crystal
-      material: END_CRYSTAL
-    '2':
-      name: Training
-      material: WOODEN_SWORD
-    '3':
-      name: Potions
-      material: SPLASH_POTION
-    '4':
-      name: Armory
-      material: NETHERITE_SWORD
-    '5':
-      name: Axe & UHC
-      material: SHIELD
+    1:
+      name: "Crystal"
+      material: "END_CRYSTAL"
+    2:
+      name: "Training"
+      material: "WOODEN_SWORD"
+    3:
+      name: "Potions"
+      material: "SPLASH_POTION"
+    4:
+      name: "Armory"
+      material: "NETHERITE_SWORD"
+    5:
+      name: "Axe & UHC"
+      material: "SHIELD"
 
 disabled-command-worlds:
-- example_world
+  - "example_world"
 
-disabled-command-message: '&cKits are disabled here!'
+disabled-command-message: "&cKits are disabled here!"
 
 
 publickits:
   kit1:
     name: "uku"
     icon: "AXOLOTL_BUCKET"
-prefix: '<gray>[<dark_purple><b>P<light_purple><b>K</gray><gray>] '
+
+prefix: "<gray>[<dark_purple><b>P<light_purple><b>K</gray><gray>] "
 
 messages:
-  player-repaired: <gray>%player% repaired their gear</gray>
-  player-healed: <gray>%player% healed themselves</gray>
-  player-opened-kit-room: <gray>%player% opened the Kit Room</gray>
-  player-loaded-private-kit: <gray>%player% loaded a kit</gray>
-  player-loaded-public-kit: <gray>%player% loaded a public kit</gray>
-  player-loaded-enderchest: <gray>%player% loaded an ender chest.</gray>
-  player-copied-kit: <gray>%player% copied a kit</gray>
-  player-copied-ec: <gray>%player% copied an ender chest</gray>
-  player-regeared: <gray>%player% regeared</gray>
+  player-repaired: "<gray>%player% repaired their gear</gray>"
+  player-healed: "<gray>%player% healed themselves</gray>"
+  player-opened-kit-room: "<gray>%player% opened the Kit Room</gray>"
+  player-loaded-private-kit: "<gray>%player% loaded a kit</gray>"
+  player-loaded-public-kit: "<gray>%player% loaded a public kit</gray>"
+  player-loaded-enderchest: "<gray>%player% loaded an ender chest.</gray>"
+  player-copied-kit: "<gray>%player% copied a kit</gray>"
+  player-copied-ec: "<gray>%player% copied an ender chest</gray>"
+  player-regeared: "<gray>%player% regeared</gray>"
 
 
 anti-exploit:
-  only-allow-kitroom-items: false # requires that items be in the kitroom before they can be used in a kit.
-  import-filter: false # requires only-allow-kitroom-items to be true. prevents the duplications of items not in the kitroom by using the kit import button.
-  block-spaces-in-commands: false # prevents bypassing command filters.
-  prevent-shulkers-dropping-items: false # prevents shulkers from dropping items when broken. Anti-lag feature.
+  only-allow-kitroom-items: false #requires that items be in the kitroom before they can be used in a kit.
+  import-filter: false #requires only-allow-kitroom-items to be true. prevents the duplications of items not in the kitroom by using the kit import button.
+  block-spaces-in-commands: false #prevents bypassing command filters.
+  prevent-shulkers-dropping-items: false #prevents shulkers from dropping items when broken. Anti-lag feature.
 
 
 regear:
-  mode: shulker # OPTIONS: command, shulker
-  command-cooldown: 5 # command cooldown in seconds. recommended to be low or 0 if using shulker mode.
-  damage-timer: 5 # time in seconds to wait after taking damage before players can regear
-  allow-while-using-elytra: false # set false to block regearing command while using elytra
+  mode: "shulker" #OPTIONS: command, shulker
+  command-cooldown: 5 #command cooldown in seconds. recommended to be low or 0 if using shulker mode.
+  damage-timer: 5 #time in seconds to wait after taking damage before players can regear
+  allow-while-using-elytra: true #set false to block regearing command while using elytra
   prevent-putting-items-in-regear-inventory: false # set true to prevent putting items inside the regear shulker inventory
   #
   # Allow regearing all items by setting:
@@ -107,24 +107,24 @@ regear:
   # whitelist: []
   #
   #
-  invert-whitelist: false # setting this to true makes the whitelist a blacklist
+  invert-whitelist: false #setting this to true makes the whitelist a blacklist
   whitelist:
-  - ENDER_PEARL
-  - END_CRYSTAL
-  - OBSIDIAN
-  - GLOWSTONE
-  - SPLASH_POTION
-  - NETHERITE_PICKAXE
-  - NETHERITE_SWORD
-  - SHIELD
-  - NETHERITE_AXE
-  - NETHERITE_PICKAXE
-  - GOLDEN_APPLE
-  - EXPERIENCE_BOTTLE
-  - TIPPED_ARROW
-  - CROSSBOW
-  - BOW
-  - COBWEB
+    - ENDER_PEARL
+    - END_CRYSTAL
+    - OBSIDIAN
+    - GLOWSTONE
+    - SPLASH_POTION
+    - NETHERITE_PICKAXE
+    - NETHERITE_SWORD
+    - SHIELD
+    - NETHERITE_AXE
+    - NETHERITE_PICKAXE
+    - GOLDEN_APPLE
+    - EXPERIENCE_BOTTLE
+    - TIPPED_ARROW
+    - CROSSBOW
+    - BOW
+    - COBWEB
 
 
 # Various feature flags for the plugin
@@ -133,17 +133,17 @@ feature:
   set-hunger-on-kit-load: false
   set-saturation-on-kit-load: false
   remove-potion-effects-on-kit-load: false
-  
+
   heal-on-enderchest-load: false
   feed-on-enderchest-load: false
   set-saturation-on-enderchest-load: false
   remove-potion-effects-on-enderchest-load: false
-  
+
   rekit-on-respawn: false
   rekit-on-kill: false
-  
-  broadcast-on-player-action: true # broadcasts when a player uses a kit, copies a kit, etc.
-  
-  send-update-message-on-join: false # sends a message to players with perplayerkit.admin when they join the server if a new version is available
-  
-  old-death-drops: false # makes it so players drop items in a condensed area rather than spreading out when they die
+
+  broadcast-on-player-action: true #broadcasts when a player uses a kit, copies a kit, etc.
+
+  send-update-message-on-join: false #sends a message to players with perplayerkit.admin when they join the server if a new version is available
+
+  old-death-drops: false #makes it so players drop items in a condensed area rather than spreading out when they die
