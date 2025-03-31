@@ -210,7 +210,7 @@ public class GUI {
                 addEditLoadEC(menu.getSlot(i), i - 17);
 
             } else {
-                menu.getSlot(i).setItem(createItem(Material.ENDER_CHEST, 1, "&cEnderchest " + (i - 17) + " &c(empty)", "&7● Click to create"));
+                menu.getSlot(i).setItem(createItem(Material.ENDER_CHEST, 1, "&cEnderchest " + (i - 17) + " &c(empty)", "&7● Click to create enderchest"));
                 addEditEC(menu.getSlot(i), i - 17);
             }
         }
