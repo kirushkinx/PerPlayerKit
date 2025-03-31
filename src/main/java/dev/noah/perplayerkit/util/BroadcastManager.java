@@ -45,7 +45,7 @@ public class BroadcastManager {
     public BroadcastManager(Plugin plugin) {
         this.plugin = plugin;
         audience = BukkitAudiences.create(plugin);
-        prefix = MiniMessage.miniMessage().deserialize(plugin.getConfig().getString("prefix", "<gray>[<aqua>Kits</aqua>]</gray> "));
+        prefix = MiniMessage.miniMessage().deserialize(plugin.getConfig().getString("prefix", "<gray>[<dark_purple><b>P<light_purple><b>K</gray><gray>] "));
         instance = this;
     }
 
