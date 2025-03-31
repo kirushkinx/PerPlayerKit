@@ -9,6 +9,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -26,8 +27,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class RegearCommand implements CommandExecutor, Listener {
 
-    public static final ItemStack REGEAR_SHULKER_ITEM = ItemUtil.createItem(Material.WHITE_SHULKER_BOX, 1, ChatColor.BLUE + "Regear Shulker", "&7● Restocks Your Kit", "&7● Use &9/rg &7to get another regear shulker");
-    public static final ItemStack REGEAR_SHELL_ITEM = ItemUtil.createItem(Material.SHULKER_SHELL, 1, ChatColor.BLUE + "Regear Shell", "&7● Restocks Your Kit", "&7● Click to use!");
+    public static final ItemStack REGEAR_SHULKER_ITEM = ItemUtil.createItem(Material.WHITE_SHULKER_BOX, 1, ChatColor.YELLOW + "Regear Shulker", "&7ⓘ Regear yourself quickly", "&7➤ Use &e/regear &7if you lose it!");
+    public static final ItemStack REGEAR_SHELL_ITEM = ItemUtil.createItem(Material.SHULKER_SHELL, 1, ChatColor.YELLOW + "Use Regear Shell", "&7ⓘ Restocks Inventory (with exceptions)");
     private final Plugin plugin;
     private final CooldownManager commandCooldownManager;
     private final CooldownManager damageCooldownManager;
@@ -71,7 +72,7 @@ public class RegearCommand implements CommandExecutor, Listener {
             }
 
             player.getInventory().setItem(slot, REGEAR_SHULKER_ITEM);
-            BroadcastManager.get().sendComponentMessage(player, MiniMessage.miniMessage().deserialize("<green>Regear Shulker given!"));
+            BroadcastManager.get().sendComponentMessage(player, MiniMessage.miniMessage().deserialize("<green>Successfully gave you the regear item!"));
 
             return true;
         }
@@ -80,7 +81,7 @@ public class RegearCommand implements CommandExecutor, Listener {
             int slot = KitManager.get().getLastKitLoaded(player.getUniqueId());
 
             if (slot == -1) {
-                BroadcastManager.get().sendComponentMessage(player, MiniMessage.miniMessage().deserialize("<red>You have not loaded a kit yet!"));
+                BroadcastManager.get().sendComponentMessage(player, MiniMessage.miniMessage().deserialize("<red>You haven't loaded a kit yet!"));
                 return true;
             }
 
@@ -91,7 +92,7 @@ public class RegearCommand implements CommandExecutor, Listener {
 
             if (damageCooldownManager.isOnCooldown(player)) {
                 int secondsLeft = damageCooldownManager.getTimeLeft(player);
-                BroadcastManager.get().sendComponentMessage(player, MiniMessage.miniMessage().deserialize("<red>You must be out of combat for " + secondsLeft + " more seconds before regearing!"));
+                BroadcastManager.get().sendComponentMessage(player, MiniMessage.miniMessage().deserialize("<red>You took damage too recently and cannot regear yet! Cooldown: " + secondsLeft));
                 return true;
             }
 
@@ -102,8 +103,9 @@ public class RegearCommand implements CommandExecutor, Listener {
             }
 
             KitManager.get().regearKit(player, slot);
-            BroadcastManager.get().sendComponentMessage(player, MiniMessage.miniMessage().deserialize("<green>Regeared!"));
+            BroadcastManager.get().sendComponentMessage(player, MiniMessage.miniMessage().deserialize("<green>Your items have been restocked."));
             BroadcastManager.get().broadcastPlayerRegeared(player);
+            player.playSound(player.getLocation(), Sound.ITEM_ARMOR_EQUIP_NETHERITE, 1f, 1f);
 
             commandCooldownManager.setCooldown(player);
 
@@ -125,7 +127,7 @@ public class RegearCommand implements CommandExecutor, Listener {
         int slot = KitManager.get().getLastKitLoaded(player.getUniqueId());
 
         if (slot == -1) {
-            BroadcastManager.get().sendComponentMessage(player, MiniMessage.miniMessage().deserialize("<red>You have not loaded a kit yet!"));
+            BroadcastManager.get().sendComponentMessage(player, MiniMessage.miniMessage().deserialize("<red>You haven't loaded a kit yet!"));
             return;
         }
 
@@ -141,6 +143,7 @@ public class RegearCommand implements CommandExecutor, Listener {
         RegearInventoryHolder holder = new RegearInventoryHolder(player);
         Inventory inventory = holder.getInventory();
         player.openInventory(inventory);
+        player.playSound(player.getLocation(), Sound.BLOCK_SHULKER_BOX_OPEN, 1f, 1f);
     }
 
     @EventHandler
@@ -167,7 +170,7 @@ public class RegearCommand implements CommandExecutor, Listener {
         int slot = KitManager.get().getLastKitLoaded(player.getUniqueId());
 
         if (slot == -1) {
-            BroadcastManager.get().sendComponentMessage(player, MiniMessage.miniMessage().deserialize("<red>You have not loaded a kit yet!"));
+            BroadcastManager.get().sendComponentMessage(player, MiniMessage.miniMessage().deserialize("<red>You haven't loaded a kit yet!"));
             return;
         }
 
@@ -182,8 +185,9 @@ public class RegearCommand implements CommandExecutor, Listener {
         KitManager.get().regearKit(player, slot);
         player.updateInventory();
 
-        BroadcastManager.get().sendComponentMessage(player, MiniMessage.miniMessage().deserialize("<green>Regeared!"));
+        BroadcastManager.get().sendComponentMessage(player, MiniMessage.miniMessage().deserialize("<green>Your items have been restocked."));
         BroadcastManager.get().broadcastPlayerRegeared(player);
+        player.playSound(player.getLocation(), Sound.ITEM_ARMOR_EQUIP_NETHERITE, 1f, 1f);
     }
 
 
@@ -192,7 +196,7 @@ public class RegearCommand implements CommandExecutor, Listener {
 
         @Override
         public @NotNull Inventory getInventory() {
-            Inventory inventory = Bukkit.createInventory(this, 27, ChatColor.BLUE + "Regear Shulker");
+            Inventory inventory = Bukkit.createInventory(this, 27, ChatColor.YELLOW + "Regear Shulker");
             inventory.setItem(13, REGEAR_SHELL_ITEM);
             return inventory;
         }
