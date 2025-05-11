@@ -40,7 +40,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.ipvp.canvas.MenuFunctionListener;
 
-
 public final class PerPlayerKit extends JavaPlugin {
 
     public static Plugin plugin;
@@ -99,7 +98,6 @@ public final class PerPlayerKit extends JavaPlugin {
         }
 
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> {
-
             if (storageManager.isConnected()) {
                 try {
                     storageManager.keepAlive();
@@ -110,14 +108,12 @@ public final class PerPlayerKit extends JavaPlugin {
                 this.getLogger().warning("Database connection failed. Attempting to reconnect.");
                 attemptDatabaseConnection(false);
             }
-
-        }, 30 * 20, 30 * 20); //runs every 30 seconds
+        }, 30 * 20, 30 * 20); // runs every 30 seconds
 
         loadDatabaseData();
         getLogger().info("Database data loaded");
 
         UpdateChecker updateChecker = new UpdateChecker(this);
-
 
         // REGISTER THINGS START
         KitSlotTabCompleter kitSlotTabCompleter = new KitSlotTabCompleter();
@@ -146,8 +142,10 @@ public final class PerPlayerKit extends JavaPlugin {
         this.getCommand("inspectkit").setExecutor(new InspectKitCommand(plugin));
         this.getCommand("inspectkit").setTabCompleter(new InspectKitCommand(plugin));
 
-        this.getCommand("enderchest").setExecutor(new EnderchestCommand());
+        this.getCommand("inspectec").setExecutor(new InspectEcCommand(plugin));
+        this.getCommand("inspectec").setTabCompleter(new InspectEcCommand(plugin));
 
+        this.getCommand("enderchest").setExecutor(new EnderchestCommand());
 
         SavePublicKitCommand savePublicKitCommand = new SavePublicKitCommand();
         this.getCommand("savepublickit").setExecutor(savePublicKitCommand);
@@ -156,7 +154,6 @@ public final class PerPlayerKit extends JavaPlugin {
         PublicKitCommand publicKitCommand = new PublicKitCommand(plugin);
         this.getCommand("publickit").setExecutor(publicKitCommand);
         this.getCommand("publickit").setTabCompleter(publicKitCommand);
-
 
         for (int i = 1; i <= 9; i++) {
             this.getCommand("k" + i).setExecutor(new ShortKitCommand());
@@ -173,7 +170,6 @@ public final class PerPlayerKit extends JavaPlugin {
         this.getCommand("repair").setExecutor(new RepairCommand());
         this.getCommand("perplayerkit").setExecutor(new PerPlayerKitCommand(this));
 
-
         Bukkit.getPluginManager().registerEvents(regearCommand, this);
         Bukkit.getPluginManager().registerEvents(new JoinListener(this, updateChecker), this);
         Bukkit.getPluginManager().registerEvents(new QuitListener(this), this);
@@ -183,8 +179,8 @@ public final class PerPlayerKit extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new AutoRekitListener(this), this);
         Bukkit.getPluginManager().registerEvents(new AboutCommandListener(), this);
 
-//        features
-        if(getConfig().getBoolean("feature.old-death-drops", false)) {
+        // features
+        if (getConfig().getBoolean("feature.old-death-drops", false)) {
             Bukkit.getPluginManager().registerEvents(new OldDeathDropListener(), this);
         }
 
@@ -196,20 +192,16 @@ public final class PerPlayerKit extends JavaPlugin {
             Bukkit.getPluginManager().registerEvents(new ShulkerDropItemsListener(), this);
         }
 
-
         // REGISTER THINGS END
-
 
         BroadcastManager.get().startScheduledBroadcast();
         updateChecker.printStartupStatus();
-
     }
 
     @Override
     public void onDisable() {
         closeDatabaseConnection();
     }
-
 
     private void loadPublicKitsIdsFromConfig() {
         // generate list of public kits from the config
@@ -218,7 +210,6 @@ public final class PerPlayerKit extends JavaPlugin {
         if (publicKitsSection == null) {
             this.getLogger().warning("No public kits found in config!");
         } else {
-
             publicKitsSection.getKeys(false).forEach(key -> {
                 String name = getConfig().getString("publickits." + key + ".name");
                 Material icon = Material.valueOf(getConfig().getString("publickits." + key + ".icon"));
@@ -232,9 +223,7 @@ public final class PerPlayerKit extends JavaPlugin {
         KitRoomDataManager.get().loadFromDB();
         KitManager.get().getPublicKitList().forEach(kit -> KitManager.get().loadPublicKitFromDB(kit.id));
         Bukkit.getOnlinePlayers().forEach(player -> KitManager.get().loadPlayerDataFromDB(player.getUniqueId()));
-
     }
-
 
     private void attemptDatabaseConnection(boolean disableOnFail) {
         try {
@@ -257,7 +246,7 @@ public final class PerPlayerKit extends JavaPlugin {
         try {
             storageManager.close();
         } catch (StorageConnectionException e) {
-//            retry once
+            // retry once
             try {
                 storageManager.close();
             } catch (StorageConnectionException ex) {
@@ -266,8 +255,7 @@ public final class PerPlayerKit extends JavaPlugin {
         }
     }
 
-
-    private void notice(){
+    private void notice() {
         String notice = """
                 * PerPlayerKit is free software: you can redistribute it and/or modify it under
                 * the terms of the GNU Affero General Public License as published by the
@@ -282,7 +270,6 @@ public final class PerPlayerKit extends JavaPlugin {
                 * You should have received a copy of the GNU Affero General Public License
                 * along with PerPlayerKit. If not, see <https://www.gnu.org/licenses/>.""";
 
-
         String otherInfo = """
                 * All users must be provided with the source code of the software, as per the AGPL-3.0 license.
                 * If you are using a modified version of PerPlayerKit, you must make the source code of your
@@ -290,11 +277,7 @@ public final class PerPlayerKit extends JavaPlugin {
                 * Consider modifying the /aboutperplayerkit command to include a link to your modified source code.
                 """;
 
-
-
         getLogger().info(notice);
         getLogger().info(otherInfo);
     }
-
-
 }
