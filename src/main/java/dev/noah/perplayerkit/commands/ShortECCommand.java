@@ -45,7 +45,10 @@ public class ShortECCommand implements CommandExecutor {
         UUID uuid = player.getUniqueId();
 
         if (label.matches("ec[1-9]")) {
-            int ecNumber = Integer.parseInt(label.substring(2)); // Extract the number from the label
+            int ecNumber = Integer.parseInt(label.substring(2));
+            KitManager.get().loadEnderchest(player, ecNumber);
+        } else if (label.matches("enderchest[1-9]")) {
+            int ecNumber = Integer.parseInt(label.substring(10));
             KitManager.get().loadEnderchest(player, ecNumber);
         } else {
             player.sendMessage("Invalid command label.");
