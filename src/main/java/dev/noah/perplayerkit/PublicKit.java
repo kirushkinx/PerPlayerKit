@@ -24,10 +24,19 @@ public class PublicKit {
     public String id;
     public String name;
     public Material icon;
+    public int slot;
 
     public PublicKit(String id, String name, Material icon) {
         this.id = id;
         this.name = name;
         this.icon = icon;
+        this.slot = -1;
+    }
+
+    public PublicKit(String id, String name, Material icon, int slot) {
+        this.id = id;
+        this.name = name;
+        this.icon = icon;
+        this.slot = slot;
     }
 }

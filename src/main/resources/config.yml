@@ -68,11 +68,11 @@ disabled-command-worlds:
 
 disabled-command-message: "&cKits are disabled here!"
 
-
-publickits:
-  kit1:
-    name: "uku"
-    icon: "AXOLOTL_BUCKET"
+publickits: # Uncomment text below for configure public kits
+#  example:
+#    name: "kirushkinx"
+#    icon: "AXOLOTL_BUCKET"
+#    slot: 22
 
 prefix: "<gray>[<dark_purple><b>P<light_purple><b>K</gray><gray>] "
 

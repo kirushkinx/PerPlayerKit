@@ -208,12 +208,13 @@ public final class PerPlayerKit extends JavaPlugin {
         ConfigurationSection publicKitsSection = getConfig().getConfigurationSection("publickits");
 
         if (publicKitsSection == null) {
-            this.getLogger().warning("No public kits found in config!");
+            return;
         } else {
             publicKitsSection.getKeys(false).forEach(key -> {
                 String name = getConfig().getString("publickits." + key + ".name");
                 Material icon = Material.valueOf(getConfig().getString("publickits." + key + ".icon"));
-                PublicKit kit = new PublicKit(key, name, icon);
+                int slot = getConfig().getInt("publickits." + key + ".slot", -1);
+                PublicKit kit = new PublicKit(key, name, icon, slot);
                 KitManager.get().getPublicKitList().add(kit);
             });
         }

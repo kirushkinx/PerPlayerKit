@@ -39,6 +39,8 @@ import org.ipvp.canvas.Menu;
 import org.ipvp.canvas.slot.ClickOptions;
 import org.ipvp.canvas.slot.Slot;
 import org.ipvp.canvas.type.ChestMenu;
+import dev.noah.perplayerkit.util.SkullUtils;
+import java.awt.Color;
 
 import java.awt.Color;
 import java.util.List;
@@ -350,44 +352,50 @@ public class GUI {
 
     public void OpenPublicKitMenu(Player player) {
         Menu menu = createPublicKitMenu();
-        for (int i = 0; i < 27; i++) {
-            menu.getSlot(i).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, " "));
-        }
-
-        for (int i = 9; i < 18; i++) {
-            ItemStack playerHead = new ItemStack(Material.PLAYER_HEAD, 1);
-            SkullMeta skullMeta = (SkullMeta) playerHead.getItemMeta();
-            if (skullMeta != null) {
-                OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer("kirushkinx");
-                skullMeta.setOwningPlayer(targetPlayer);
-                skullMeta.setDisplayName(ChatColor.of(new Color(196, 158, 243)) + "Nothing here yet...");
-                playerHead.setItemMeta(skullMeta);
-            }
-            menu.getSlot(i).setItem(playerHead);
-        }
 
         List<PublicKit> publicKitList = KitManager.get().getPublicKitList();
 
-        for (int i = 0; i < publicKitList.size(); i++) {
-            if (KitManager.get().hasPublicKit(publicKitList.get(i).id)) {
-                if (player.hasPermission("perplayerkit.admin")) {
-                    menu.getSlot(i + 9).setItem(createItem(publicKitList.get(i).icon, 1, ChatColor.RESET + publicKitList.get(i).name, "&7● [ADMIN] Shift-click to edit"));
-                } else {
-                    menu.getSlot(i + 9).setItem(createItem(publicKitList.get(i).icon, 1, ChatColor.RESET + publicKitList.get(i).name));
-                }
-                addPublicKitButton(menu.getSlot(i + 9), publicKitList.get(i).id);
-            } else {
-                if (player.hasPermission("perplayerkit.admin")) {
-                    menu.getSlot(i + 9).setItem(createItem(publicKitList.get(i).icon, 1, ChatColor.RESET + publicKitList.get(i).name + " &c&l[UNASSIGNED]", "&7● Admins have not yet setup this kit yet", "&7● [ADMIN] Shift click to edit"));
-                } else {
-                    menu.getSlot(i + 9).setItem(createItem(publicKitList.get(i).icon, 1, ChatColor.RESET + publicKitList.get(i).name + " &c&l[UNASSIGNED]", "&7● Admins have not yet setup this kit yet"));
-                }
+        if (publicKitList == null || publicKitList.isEmpty()) {
+            for (int i = 0; i < 27; i++) {
+                menu.getSlot(i).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, " "));
+            }
+            ItemStack placeholderHead = SkullUtils.createCustomSkull(
+                    ChatColor.of(new Color(196, 158, 243)) + "Nothing here yet...", 0);
+            menu.getSlot(13).setItem(placeholderHead);
+            addMeowButton(menu.getSlot(13));
+        } else {
+            for (int i = 0; i < 27; i++) {
+                menu.getSlot(i).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, " "));
             }
 
-            if (player.hasPermission("perplayerkit.admin")) {
-                addAdminPublicKitButton(menu.getSlot(i + 9), publicKitList.get(i).id);
+            for (PublicKit publicKit : publicKitList) {
+                int targetSlot = (publicKit.slot >= 0 && publicKit.slot <= 26) ? publicKit.slot : 13;
+
+                if (KitManager.get().hasPublicKit(publicKit.id)) {
+                    if (player.hasPermission("perplayerkit.admin")) {
+                        menu.getSlot(targetSlot).setItem(createItem(publicKit.icon, 1,
+                                ChatColor.RESET + publicKit.name, "&7● [ADMIN] Shift-click to edit"));
+                    } else {
+                        menu.getSlot(targetSlot).setItem(createItem(publicKit.icon, 1,
+                                ChatColor.RESET + publicKit.name));
+                    }
+                    addPublicKitButton(menu.getSlot(targetSlot), publicKit.id);
+                } else {
+                    if (player.hasPermission("perplayerkit.admin")) {
+                        menu.getSlot(targetSlot).setItem(createItem(publicKit.icon, 1,
+                                ChatColor.RESET + publicKit.name + " &c&l[UNASSIGNED]",
+                                "&7● Admins have not yet setup this kit yet",
+                                "&7● [ADMIN] Shift click to edit"));
+                        addAdminPublicKitButton(menu.getSlot(targetSlot), publicKit.id);
+                    } else {
+                        menu.getSlot(targetSlot).setItem(createItem(publicKit.icon, 1,
+                                ChatColor.RESET + publicKit.name + " &c&l[UNASSIGNED]",
+                                "&7● Admins have not yet setup this kit yet"));
+                    }
+                }
             }
         }
+
         menu.open(player);
     }
 
