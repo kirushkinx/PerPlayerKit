@@ -1,7 +1,7 @@
 name: PerPlayerKit
 version: "${project.version}"
 main: dev.noah.perplayerkit.PerPlayerKit
-author: Noah Ross
+authors: [Noah Ross, kirushkinx]
 api-version: 1.19
 softdepend:
   - PlaceholderAPI

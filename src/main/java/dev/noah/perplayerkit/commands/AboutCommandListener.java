@@ -42,22 +42,22 @@ public class AboutCommandListener implements Listener {
     }
 
     private void sendAboutMessage(CommandSender sender) {
-        String author = "Noah Ross";
+        String authors = "Noah Ross, kirushkinx";
         String source = "https://github.com/rossnoah/PerPlayerKit";
+        String fork = "https://github.com/kirushkinx/PerPlayerKit";
         String license = "AGPL-3.0";
 
-        String buildTimestamp = buildProperties.getProperty("build.timestamp", "Unknown");
         String pluginVersion = buildProperties.getProperty("plugin.version", "Unknown");
 
 
-        sender.sendMessage("==========[About]==========");
+        sender.sendMessage("=+=+=+=+=+=+=+= About =+=+=+=+=+=+=+=");
         sender.sendMessage("PerPlayerKit");
-        sender.sendMessage("Author: " + author);
+        sender.sendMessage("Authors: " + authors);
         sender.sendMessage("License: " + license);
-        sender.sendMessage("Source Code: " + source);
+        sender.sendMessage("Original Source: " + source);
+        sender.sendMessage("Fork Source: " + fork);
         sender.sendMessage("Version: " + pluginVersion);
-        sender.sendMessage("Build Time: " + buildTimestamp);
-        sender.sendMessage("===========================");
+        sender.sendMessage("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
     }
 
     @EventHandler
