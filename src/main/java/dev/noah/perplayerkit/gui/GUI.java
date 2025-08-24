@@ -236,10 +236,11 @@ public class GUI {
         for (int i = 9; i < 18; i++) {
             if (KitManager.get().getItemStackArrayById(p.getUniqueId().toString() + (i - 8)) != null) {
                 menu.getSlot(i).setItem(createItem(Material.LIME_SHULKER_BOX, 1, "&aKit " + (i - 8), "&7● Left click to load kit", "&7● Right click to edit kit"));
+                addEditLoad(menu.getSlot(i), i - 8);
             } else {
                 menu.getSlot(i).setItem(createItem(Material.RED_SHULKER_BOX, 1, "&cKit " + (i - 8) + " &c(empty)", "&7● Click to create kit"));
+                addEdit(menu.getSlot(i), i - 8);
             }
-            addEditLoad(menu.getSlot(i), i - 8);
         }
         for (int i = 18; i < 27; i++) {
             if (KitManager.get().getItemStackArrayById(p.getUniqueId() + "ec" + (i - 17)) != null) {
@@ -651,7 +652,7 @@ public class GUI {
     }
 
     public Menu createKitRoom() {
-        return ChestMenu.builder(6).title(ChatColor.BLUE + "Кit Room").build();
+        return ChestMenu.builder(6).title(ChatColor.BLUE + "Кit Room").redraw(true).build();
     }
 
     public void allowModification(Slot slot) {
