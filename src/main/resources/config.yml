@@ -23,6 +23,10 @@ redis:
   port: 6379
   password: "pa55w0rd"
 
+interface:
+  glass-material: BLUE_STAINED_GLASS_PANE
+  title-color: "<blue>" # Menu title color (MiniMessage format: <blue>, <red>, <green>, etc.)
+
 
 motd:
   enabled: false

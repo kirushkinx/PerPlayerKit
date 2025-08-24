@@ -43,6 +43,7 @@ import dev.noah.perplayerkit.util.SkullUtils;
 import java.awt.Color;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import dev.noah.perplayerkit.util.StyleManager;
 
 import java.awt.Color;
 import java.util.List;
@@ -71,8 +72,12 @@ public class GUI {
         slot.setClickHandler((player, info) -> KitManager.get().loadPublicKit(player, id));
     }
 
-    public static Menu createPublicKitMenu() {
-        return ChestMenu.builder(3).title(ChatColor.BLUE + "Premade Kits").build();
+    private ItemStack createGlassPane() {
+        return createItem(StyleManager.get().getGlassMaterial(), 1, " ");
+    }
+
+    private ItemStack createNamedGlassPane(String name) {
+        return createItem(StyleManager.get().getGlassMaterial(), 1, name);
     }
 
     public void OpenKitMenu(Player p, int slot) {
@@ -88,7 +93,7 @@ public class GUI {
             allowModification(menu.getSlot(i));
         }
         for (int i = 41; i < 54; i++) {
-            menu.getSlot(i).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, " "));
+            menu.getSlot(i).setItem(createGlassPane());
         }
         menu.getSlot(45).setItem(createItem(Material.CHAINMAIL_BOOTS, 1, "&7Boots"));
         menu.getSlot(46).setItem(createItem(Material.CHAINMAIL_LEGGINGS, 1, "&7Leggings"));
@@ -120,7 +125,7 @@ public class GUI {
             allowModification(menu.getSlot(i));
         }
         for (int i = 41; i < 54; i++) {
-            menu.getSlot(i).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, " "));
+            menu.getSlot(i).setItem(createGlassPane());
         }
         menu.getSlot(45).setItem(createItem(Material.CHAINMAIL_BOOTS, 1, "&7Boots"));
         menu.getSlot(46).setItem(createItem(Material.CHAINMAIL_LEGGINGS, 1, "&7Leggings"));
@@ -143,7 +148,7 @@ public class GUI {
         Menu menu = createECMenu(slot);
 
         for (int i = 27; i < 36; i++) {
-            menu.getSlot(i).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, " "));
+            menu.getSlot(i).setItem(createGlassPane());
         }
         if (KitManager.get().getItemStackArrayById(p.getUniqueId() + "ec" + slot) != null) {
             ItemStack[] kit = KitManager.get().getItemStackArrayById(p.getUniqueId() + "ec" + slot);
@@ -177,7 +182,7 @@ public class GUI {
         }
 
         for (int i = 41; i < 54; i++) {
-            menu.getSlot(i).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, " "));
+            menu.getSlot(i).setItem(createGlassPane());
         }
         menu.getSlot(45).setItem(createItem(Material.CHAINMAIL_BOOTS, 1, "&7Boots"));
         menu.getSlot(46).setItem(createItem(Material.CHAINMAIL_LEGGINGS, 1, "&7Leggings"));
@@ -213,7 +218,7 @@ public class GUI {
         }
 
         for (int i = 27; i < 36; i++) {
-            menu.getSlot(i).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, " "));
+            menu.getSlot(i).setItem(createGlassPane());
         }
         menu.getSlot(31).setItem(createItem(Material.MANGROVE_DOOR, 1, "&c&lBack"));
         menu.getSlot(31).setClickHandler((player, info) -> info.getClickedMenu().close());
@@ -233,7 +238,7 @@ public class GUI {
     public void OpenMainMenu(Player p) {
         Menu menu = createMainMenu();
         for (int i = 0; i < 45; i++) {
-            menu.getSlot(i).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, " "));
+            menu.getSlot(i).setItem(createGlassPane());
         }
         for (int i = 9; i < 18; i++) {
             if (KitManager.get().getItemStackArrayById(p.getUniqueId().toString() + (i - 8)) != null) {
@@ -255,7 +260,7 @@ public class GUI {
         }
 
         for (int i = 37; i < 44; i++) {
-            menu.getSlot(i).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, " "));
+            menu.getSlot(i).setItem(createGlassPane());
         }
 
         menu.getSlot(29).setItem(createItem(Material.NETHER_STAR, 1, "&a&lKit Room"));
@@ -263,7 +268,7 @@ public class GUI {
         menu.getSlot(31).setItem(createItem(Material.REDSTONE_BLOCK, 1, "&c&lClear Inventory", "&7● Shift click"));
         menu.getSlot(32).setItem(createItem(Material.COMPASS, 1, "&a&lShare Kits", "&7● /sharekit <slot>"));
         menu.getSlot(33).setItem(createItem(Material.EXPERIENCE_BOTTLE, 1, "&a&lRepair Items"));
-        menu.getSlot(44).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, ChatColor.of(new Color(196, 158, 243)) + "\uD83D\uDC08"));
+        menu.getSlot(44).setItem(createNamedGlassPane(ChatColor.of(new Color(196, 158, 243)) + "\uD83D\uDC08"));
         addMeowButton(menu.getSlot(44), "plugin forked by kirushkinx");
         addRepairButton(menu.getSlot(33));
         addKitRoom(menu.getSlot(29));
@@ -284,7 +289,7 @@ public class GUI {
             allowModification(menu.getSlot(i));
         }
         for (int i = 45; i < 54; i++) {
-            menu.getSlot(i).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, " "));
+            menu.getSlot(i).setItem(createGlassPane());
         }
         if (KitRoomDataManager.get().getKitRoomPage(page) != null) {
             for (int i = 0; i < 45; i++) {
@@ -327,10 +332,10 @@ public class GUI {
             }
             return null;
         }
-        Menu menu = ChestMenu.builder(6).title(ChatColor.BLUE + "Viewing Public Kit " + id).build();
+        Menu menu = ChestMenu.builder(6).title(StyleManager.get().getTitleColor() + "Viewing Public Kit " + id).build();
 
         for (int i = 0; i < 54; i++) {
-            menu.getSlot(i).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, " "));
+            menu.getSlot(i).setItem(createGlassPane());
         }
 
         for (int i = 9; i < 36; i++) {
@@ -360,7 +365,7 @@ public class GUI {
 
         if (publicKitList == null || publicKitList.isEmpty()) {
             for (int i = 0; i < 27; i++) {
-                menu.getSlot(i).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, " "));
+                menu.getSlot(i).setItem(createGlassPane());
             }
             ItemStack placeholderHead = SkullUtils.createCustomSkull(
                     ChatColor.of(new Color(196, 158, 243)) + "Nothing here yet...", 0);
@@ -368,7 +373,7 @@ public class GUI {
             addMeowButton(menu.getSlot(13), "plugin forked by kirushkinx");
         } else {
             for (int i = 0; i < 27; i++) {
-                menu.getSlot(i).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, " "));
+                menu.getSlot(i).setItem(createGlassPane());
             }
 
             for (PublicKit publicKit : publicKitList) {
@@ -630,35 +635,39 @@ public class GUI {
     }
 
     public Menu createKitMenu(int slot) {
-        return ChestMenu.builder(6).title(ChatColor.BLUE + "Kit " + slot).build();
+        return ChestMenu.builder(6).title(StyleManager.get().getTitleColor() + "Kit " + slot).build();
     }
 
     public Menu createPublicKitMenu(String id) {
-        return ChestMenu.builder(6).title(ChatColor.BLUE + "Public Kit " + id).build();
+        return ChestMenu.builder(6).title(StyleManager.get().getTitleColor() + "Public Kit " + id).build();
     }
 
     public Menu createECMenu(int slot) {
-        return ChestMenu.builder(4).title(ChatColor.BLUE + "Enderchest " + slot).build();
+        return ChestMenu.builder(4).title(StyleManager.get().getTitleColor() + "Enderchest " + slot).build();
     }
 
     public Menu createInspectMenu(int slot, UUID target) {
         OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(target);
         String playerName = targetPlayer.getName() != null ? targetPlayer.getName() : "Unknown Player";
-        return ChestMenu.builder(6).title(ChatColor.BLUE + "Inspecting " + playerName + "'s kit " + slot).build();
+        return ChestMenu.builder(6).title(StyleManager.get().getTitleColor() + "Inspecting " + playerName + "'s kit " + slot).build();
     }
 
     public Menu createInspectEcMenu(int slot, UUID target) {
         OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(target);
         String playerName = targetPlayer.getName() != null ? targetPlayer.getName() : "Unknown Player";
-        return ChestMenu.builder(4).title(ChatColor.BLUE + "Inspecting " + playerName + "'s enderchest " + slot).build();
+        return ChestMenu.builder(4).title(StyleManager.get().getTitleColor() + "Inspecting " + playerName + "'s enderchest " + slot).build();
     }
 
     public Menu createMainMenu() {
-        return ChestMenu.builder(5).title(ChatColor.BLUE + "Kit Menu").build();
+        return ChestMenu.builder(5).title(StyleManager.get().getTitleColor() + "Kit Menu").build();
     }
 
     public Menu createKitRoom() {
-        return ChestMenu.builder(6).title(ChatColor.BLUE + "Кit Room").redraw(true).build();
+        return ChestMenu.builder(6).title(StyleManager.get().getTitleColor() + "Кit Room").redraw(true).build();
+    }
+
+    public static Menu createPublicKitMenu() {
+        return ChestMenu.builder(3).title(StyleManager.get().getTitleColor() + "Premade Kits").build();
     }
 
     public void allowModification(Slot slot) {
