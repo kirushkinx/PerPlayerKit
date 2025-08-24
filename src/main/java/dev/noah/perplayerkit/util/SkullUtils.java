@@ -1,7 +1,7 @@
 /*
 
     Skull Utility
-        by kirushkinx
+        by kirushkinx (https://github.com/kirushkinx)
 
  */
 
