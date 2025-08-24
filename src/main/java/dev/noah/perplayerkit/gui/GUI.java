@@ -33,7 +33,6 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.Plugin;
 import org.ipvp.canvas.Menu;
 import org.ipvp.canvas.slot.ClickOptions;
@@ -45,7 +44,6 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import dev.noah.perplayerkit.util.StyleManager;
 
-import java.awt.Color;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -332,7 +330,7 @@ public class GUI {
             }
             return null;
         }
-        Menu menu = ChestMenu.builder(6).title(StyleManager.get().getTitleColor() + "Viewing Public Kit " + id).build();
+        Menu menu = ChestMenu.builder(6).title(StyleManager.get().getMainColor() + "Viewing Public Kit " + id).build();
 
         for (int i = 0; i < 54; i++) {
             menu.getSlot(i).setItem(createGlassPane());
@@ -635,39 +633,39 @@ public class GUI {
     }
 
     public Menu createKitMenu(int slot) {
-        return ChestMenu.builder(6).title(StyleManager.get().getTitleColor() + "Kit " + slot).build();
+        return ChestMenu.builder(6).title(StyleManager.get().getMainColor() + "Kit " + slot).build();
     }
 
     public Menu createPublicKitMenu(String id) {
-        return ChestMenu.builder(6).title(StyleManager.get().getTitleColor() + "Public Kit " + id).build();
+        return ChestMenu.builder(6).title(StyleManager.get().getMainColor() + "Public Kit " + id).build();
     }
 
     public Menu createECMenu(int slot) {
-        return ChestMenu.builder(4).title(StyleManager.get().getTitleColor() + "Enderchest " + slot).build();
+        return ChestMenu.builder(4).title(StyleManager.get().getMainColor() + "Enderchest " + slot).build();
     }
 
     public Menu createInspectMenu(int slot, UUID target) {
         OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(target);
         String playerName = targetPlayer.getName() != null ? targetPlayer.getName() : "Unknown Player";
-        return ChestMenu.builder(6).title(StyleManager.get().getTitleColor() + "Inspecting " + playerName + "'s kit " + slot).build();
+        return ChestMenu.builder(6).title(StyleManager.get().getMainColor() + "Inspecting " + playerName + "'s kit " + slot).build();
     }
 
     public Menu createInspectEcMenu(int slot, UUID target) {
         OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(target);
         String playerName = targetPlayer.getName() != null ? targetPlayer.getName() : "Unknown Player";
-        return ChestMenu.builder(4).title(StyleManager.get().getTitleColor() + "Inspecting " + playerName + "'s enderchest " + slot).build();
+        return ChestMenu.builder(4).title(StyleManager.get().getMainColor() + "Inspecting " + playerName + "'s enderchest " + slot).build();
     }
 
     public Menu createMainMenu() {
-        return ChestMenu.builder(5).title(StyleManager.get().getTitleColor() + "Kit Menu").build();
+        return ChestMenu.builder(5).title(StyleManager.get().getMainColor() + "Kit Menu").build();
     }
 
     public Menu createKitRoom() {
-        return ChestMenu.builder(6).title(StyleManager.get().getTitleColor() + "Кit Room").redraw(true).build();
+        return ChestMenu.builder(6).title(StyleManager.get().getMainColor() + "Кit Room").redraw(true).build();
     }
 
     public static Menu createPublicKitMenu() {
-        return ChestMenu.builder(3).title(StyleManager.get().getTitleColor() + "Premade Kits").build();
+        return ChestMenu.builder(3).title(StyleManager.get().getMainColor() + "Premade Kits").build();
     }
 
     public void allowModification(Slot slot) {

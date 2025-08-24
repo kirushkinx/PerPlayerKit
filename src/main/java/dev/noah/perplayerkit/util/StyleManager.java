@@ -37,7 +37,7 @@ public class StyleManager {
             this.glassMaterial = Material.BLUE_STAINED_GLASS_PANE;
         }
 
-        String colorTag = plugin.getConfig().getString("interface.title-color", "<blue>");
+        String colorTag = plugin.getConfig().getString("interface.main-color", "<blue>");
         this.titleColor = miniMessageToLegacy(colorTag);
     }
 
@@ -54,7 +54,7 @@ public class StyleManager {
         return glassMaterial;
     }
 
-    public String getTitleColor() {
+    public String getMainColor() {
         return titleColor;
     }
 }
