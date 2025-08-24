@@ -41,6 +41,8 @@ import org.ipvp.canvas.slot.Slot;
 import org.ipvp.canvas.type.ChestMenu;
 import dev.noah.perplayerkit.util.SkullUtils;
 import java.awt.Color;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 
 import java.awt.Color;
 import java.util.List;
@@ -261,8 +263,8 @@ public class GUI {
         menu.getSlot(31).setItem(createItem(Material.REDSTONE_BLOCK, 1, "&c&lClear Inventory", "&7● Shift click"));
         menu.getSlot(32).setItem(createItem(Material.COMPASS, 1, "&a&lShare Kits", "&7● /sharekit <slot>"));
         menu.getSlot(33).setItem(createItem(Material.EXPERIENCE_BOTTLE, 1, "&a&lRepair Items"));
-        menu.getSlot(44).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, "&f\uD83D\uDC08"));
-        addMeowButton(menu.getSlot(44));
+        menu.getSlot(44).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, ChatColor.of(new Color(196, 158, 243)) + "\uD83D\uDC08"));
+        addMeowButton(menu.getSlot(44), "plugin forked by kirushkinx");
         addRepairButton(menu.getSlot(33));
         addKitRoom(menu.getSlot(29));
         addPublicKitMenu(menu.getSlot(30));
@@ -363,7 +365,7 @@ public class GUI {
             ItemStack placeholderHead = SkullUtils.createCustomSkull(
                     ChatColor.of(new Color(196, 158, 243)) + "Nothing here yet...", 0);
             menu.getSlot(13).setItem(placeholderHead);
-            addMeowButton(menu.getSlot(13));
+            addMeowButton(menu.getSlot(13), "plugin forked by kirushkinx");
         } else {
             for (int i = 0; i < 27; i++) {
                 menu.getSlot(i).setItem(createItem(Material.BLUE_STAINED_GLASS_PANE, 1, " "));
@@ -524,8 +526,12 @@ public class GUI {
         });
     }
 
-    public void addMeowButton(Slot slot) {
+    public void addMeowButton(Slot slot, String message) {
         slot.setClickHandler((player, info) -> {
+            String hexColor = "§x§c§4§9§e§f§3";
+            String coloredMessage = hexColor + message;
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                    TextComponent.fromLegacyText(coloredMessage));
             if (info.getClickType() == ClickType.RIGHT) {
                 player.playSound(player.getLocation(), Sound.ENTITY_CAT_STRAY_AMBIENT, 1f, 1f);
             } else if (info.getClickType() == ClickType.LEFT) {
