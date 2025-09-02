@@ -281,7 +281,10 @@ public class KitManager {
 
         ItemStack[] kit = kitByKitIDMap.get(IDUtil.getPlayerKitId(uuid, slot));
         ItemStack[] playerInventory = player.getInventory().getContents();
-        for (int i = 0; i < playerInventory.length; i++) {
+
+        int maxIndex = Math.min(kit.length, playerInventory.length);
+
+        for (int i = 0; i < maxIndex; i++) {
             if (kit[i] == null) {
                 continue;
             }
@@ -298,7 +301,6 @@ public class KitManager {
 
             if (playerInventory[i] == null || playerInventory[i].getType().isAir() || playerInventory[i].getType() == kit[i].getType()) {
                 playerInventory[i] = kit[i];
-                continue;
             }
         }
         player.getInventory().setContents(playerInventory);
