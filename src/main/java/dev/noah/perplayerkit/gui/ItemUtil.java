@@ -18,7 +18,7 @@
  */
 package dev.noah.perplayerkit.gui;
 
-import org.bukkit.ChatColor;
+import dev.noah.perplayerkit.util.ColorUtil;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -37,13 +37,13 @@ public class ItemUtil {
 
         if (meta != null) {
             if (name != null && !name.isEmpty()) {
-                meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
+                meta.setDisplayName(ColorUtil.translateColors(name));
             }
 
             if (loreLines != null && loreLines.length > 0) {
                 List<String> lore = new ArrayList<>();
                 Arrays.stream(loreLines)
-                        .map(line -> ChatColor.translateAlternateColorCodes('&', line))
+                        .map(ColorUtil::translateColors)
                         .forEach(lore::add);
                 meta.setLore(lore);
             }

@@ -1,4 +1,3 @@
-
 config-version: 1 #do not change this value
 
 
@@ -25,46 +24,46 @@ redis:
 
 interface:
   glass-material: BLUE_STAINED_GLASS_PANE
-  main-color: "<blue>" # Plugin main color (MiniMessage format: <blue>, <red>, <green>, etc.)
+  primary-color: "&9"
 
 
 motd:
   enabled: false
   delay: 5
-  message: #join messages using mini message format
+  message: #join messages using & color codes
     - ""
-    - "<gray>   <st>                </st> <aqua><b>Per Player Kits</b><gray> <st>                </st>"
+    - "&8   &m                &b&lPer Player Kits&8 &m                "
     - ""
-    - "         <white>Type <aqua>/kit<white>, <aqua>/k <white>or <aqua>/pk<white> to get started!"
+    - "         &fType &b/kit&f, &b/k &for &b/pk&f to get started!"
     - ""
-    - "<gray>   <st>                                                         "
+    - "&8   &m                                                         "
     - ""
 
-scheduled-broadcast: #uses mini message format
+scheduled-broadcast: #uses & color codes
   enabled: false
   period: 90 #in seconds
   messages:
-    - "<white>Check out public kits with the <aqua>/pk<white> command!"
-    - "<white>Want to share a kit? Use the <aqua>/sharekit <slot><white> command!"
-    - "<white>Type <aqua>/kit<white>, <aqua>/k <white>or <aqua>/pk<white> to get started!"
+    - "&fCheck out public kits with the &b/pk&f command!"
+    - "&fWant to share a kit? Use the &b/sharekit <slot>&f command!"
+    - "&fType &b/kit&f, &b/k &for &b/pk&f to get started!"
 
 
 kitroom:
   items:
     1:
-      name: "Crystal"
+      name: "&9Crystal"
       material: "END_CRYSTAL"
     2:
-      name: "Training"
+      name: "&9Training"
       material: "WOODEN_SWORD"
     3:
-      name: "Potions"
+      name: "&9Potions"
       material: "SPLASH_POTION"
     4:
-      name: "Armory"
+      name: "&9Armory"
       material: "NETHERITE_SWORD"
     5:
-      name: "Axe & UHC"
+      name: "&9Axe & UHC"
       material: "SHIELD"
 
 disabled-command-worlds:
@@ -72,24 +71,26 @@ disabled-command-worlds:
 
 disabled-command-message: "&cKits are disabled here!"
 
-publickits: # Uncomment text below for configure public kits
+# Uncomment text below for configure public kits
+
+#publickits:
 #  example:
-#    name: "kirushkinx"
+#    name: "&#C49EF3kirushkinx"
 #    icon: "AXOLOTL_BUCKET"
 #    slot: 22
 
-prefix: "<gray>[<dark_purple><b>P<light_purple><b>K</gray><gray>] "
+prefix: "&7[&5&lP&d&lK&7] "
 
 messages:
-  player-repaired: "<gray>%player% repaired their gear</gray>"
-  player-healed: "<gray>%player% healed themselves</gray>"
-  player-opened-kit-room: "<gray>%player% opened the Kit Room</gray>"
-  player-loaded-private-kit: "<gray>%player% loaded a kit</gray>"
-  player-loaded-public-kit: "<gray>%player% loaded a public kit</gray>"
-  player-loaded-enderchest: "<gray>%player% loaded an ender chest.</gray>"
-  player-copied-kit: "<gray>%player% copied a kit</gray>"
-  player-copied-ec: "<gray>%player% copied an ender chest</gray>"
-  player-regeared: "<gray>%player% regeared</gray>"
+  player-repaired: "&7%player% repaired their gear"
+  player-healed: "&7%player% healed themselves"
+  player-opened-kit-room: "&7%player% opened the Kit Room"
+  player-loaded-private-kit: "&7%player% loaded a kit"
+  player-loaded-public-kit: "&7%player% loaded a public kit"
+  player-loaded-enderchest: "&7%player% loaded an ender chest."
+  player-copied-kit: "&7%player% copied a kit"
+  player-copied-ec: "&7%player% copied an ender chest"
+  player-regeared: "&7%player% regeared"
 
 
 anti-exploit:

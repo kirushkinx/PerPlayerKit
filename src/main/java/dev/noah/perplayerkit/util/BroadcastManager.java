@@ -21,7 +21,6 @@ package dev.noah.perplayerkit.util;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -32,8 +31,8 @@ import java.util.List;
 
 public class BroadcastManager {
 
-    private static final int LINE_LENGTH = 60; // Length of the strikethrough line
-    private static final String FIGURE_SPACE = "\u2007"; // A whitespace character of consistent width
+    private static final int LINE_LENGTH = 60;
+    private static final String FIGURE_SPACE = "\u2007";
     private static BroadcastManager instance;
     private final int broadcastDistance = 200;
     private final Plugin plugin;
@@ -45,7 +44,7 @@ public class BroadcastManager {
     public BroadcastManager(Plugin plugin) {
         this.plugin = plugin;
         audience = BukkitAudiences.create(plugin);
-        prefix = MiniMessage.miniMessage().deserialize(plugin.getConfig().getString("prefix", "<gray>[<dark_purple><b>P<light_purple><b>K</gray><gray>] "));
+        prefix = ColorUtil.color(plugin.getConfig().getString("prefix", "&7[&5&lP&d&lK&7] "));
         instance = this;
     }
 
@@ -57,15 +56,15 @@ public class BroadcastManager {
     }
 
     public static Component generateBroadcastComponent(String message) {
-        String strikeThroughLine = "<gray>" + " ".repeat(3) + "<st>" + FIGURE_SPACE.repeat(LINE_LENGTH) + "</st>";
+        String strikeThroughLine = "&7   " + "&m" + FIGURE_SPACE.repeat(LINE_LENGTH);
 
-        int messageLength = MiniMessage.miniMessage().stripTags(message).length();
-
+        String cleanMessage = org.bukkit.ChatColor.stripColor(ColorUtil.translateColors(message));
+        int messageLength = cleanMessage.length();
         int padding = (LINE_LENGTH - messageLength) / 2;
 
-        String formattedMessage = strikeThroughLine + "\n\n" + " ".repeat(3) + FIGURE_SPACE.repeat(Math.max(padding, 0)) + message + "\n\n" + strikeThroughLine;
+        String formattedMessage = strikeThroughLine + "\n\n   " + " ".repeat(Math.max(padding, 0)) + message + "\n\n" + strikeThroughLine;
 
-        return MiniMessage.miniMessage().deserialize(formattedMessage);
+        return ColorUtil.color(formattedMessage);
     }
 
     private void broadcastMessage(Player player, String message) {
@@ -77,7 +76,7 @@ public class BroadcastManager {
 
         for (Player broadcastPlayer : world.getPlayers()) {
             if (broadcastPlayer.getLocation().distance(player.getLocation()) < broadcastDistance) {
-                audience.player(broadcastPlayer).sendMessage(prefix.append(MiniMessage.miniMessage().deserialize(message)));
+                audience.player(broadcastPlayer).sendMessage(prefix.append(ColorUtil.color(message)));
             }
         }
     }
@@ -93,8 +92,7 @@ public class BroadcastManager {
             return;
         }
 
-        String message = plugin.getConfig().getString(key.getKey(), "<gray><aqua>%player%</aqua> " +
-                "performed an action.</gray>");
+        String message = plugin.getConfig().getString(key.getKey(), "&7&b%player%&7 performed an action.");
         message = message.replace("%player%", player.getName());
 
         broadcastMessage(player, message);
@@ -139,9 +137,11 @@ public class BroadcastManager {
     public void broadcastPlayerRegeared(Player player) {
         broadcastMessage(player, MessageKey.PLAYER_REGEARED, null);
     }
+
     public void startScheduledBroadcast() {
         List<Component> messages = new ArrayList<>();
-        plugin.getConfig().getStringList("scheduled-broadcast.messages").forEach(message -> messages.add(generateBroadcastComponent(message)));
+        plugin.getConfig().getStringList("scheduled-broadcast.messages").forEach(message ->
+                messages.add(generateBroadcastComponent(message)));
 
         int[] index = {0};
 
@@ -160,7 +160,15 @@ public class BroadcastManager {
     }
 
     public enum MessageKey {
-        PLAYER_REPAIRED("messages.player-repaired"), PLAYER_HEALED("messages.player-healed"), PLAYER_OPENED_KIT_ROOM("messages.player-opened-kit-room"), PLAYER_LOADED_PRIVATE_KIT("messages.player-loaded-private-kit"), PLAYER_LOADED_PUBLIC_KIT("messages.player-loaded-public-kit"), PLAYER_LOADED_ENDER_CHEST("messages.player-loaded-enderchest"), PLAYER_COPIED_KIT("messages.player-copied-kit"),PLAYER_COPIED_EC("messages.player-copied-ec"), PLAYER_REGEARED("messages.player-regeared");
+        PLAYER_REPAIRED("messages.player-repaired"),
+        PLAYER_HEALED("messages.player-healed"),
+        PLAYER_OPENED_KIT_ROOM("messages.player-opened-kit-room"),
+        PLAYER_LOADED_PRIVATE_KIT("messages.player-loaded-private-kit"),
+        PLAYER_LOADED_PUBLIC_KIT("messages.player-loaded-public-kit"),
+        PLAYER_LOADED_ENDER_CHEST("messages.player-loaded-enderchest"),
+        PLAYER_COPIED_KIT("messages.player-copied-kit"),
+        PLAYER_COPIED_EC("messages.player-copied-ec"),
+        PLAYER_REGEARED("messages.player-regeared");
 
         private final String key;
 
